@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NicheHood | Communities</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      }
+      .nav-link {
+        transition: background-color 0.2s ease, transform 0.2s ease;
+      }
+      .nav-link:hover {
+        background-color: #e5e7eb;
+        transform: translateY(-1px);
+      }
+      .tab {
+        transition: all 0.2s ease;
+      }
+      .tab:hover {
+        background-color: #e5e7eb;
+      }
+      .tab.active {
+        border-bottom: 2px solid #2563eb;
+        color: #2563eb;
+        font-weight: 600;
+      }
+      
+    </style>
+  </head>
+
+  <body class="bg-gray-100 min-h-screen flex flex-col">
+    <div id="communities-page-container" class="flex flex-col flex-grow">
+      <!-- Navbar -->
+      <nav class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+          <h1 class="font-bold text-purple-800 text-2xl">NicheHood</h1>
+          <div class="flex items-center space-x-4">
+            <a href="homepage.html" class="nav-link px-3 py-2 text-sm text-gray-700 font-medium rounded-md">Home</a>
+            <a href="communitie.html" class="nav-link px-3 py-2 text-sm font-medium bg-purple-700 text-white rounded-md">Communities</a>
+            <a href="profil.html" class="nav-link px-3 py-2 text-sm text-gray-700 font-medium rounded-md">Profile</a>
+            <button id="logout-btn" class="nav-link px-3 py-2 text-sm text-gray-700 font-medium rounded-md">Logout</button>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main -->
+      <main class="max-w-4xl mx-auto px-4 mt-8 w-full flex-grow">
+
+        <!-- Community Section -->
+        <div class="bg-white rounded-lg shadow-sm">
+          <div class="flex border-b border-gray-200">
+            <h1 class="tab px-4 py-3 text-gray-600 font-medium text-sm" id="all-tab">All Communities</h1>
+          </div>
+          <div class="p-6">
+            <div id="all-communities-list" class="space-y-4 hidden"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module">
+      import { auth, db } from "./firebaseconfig.js";
+      import {
+        signOut,
+        onAuthStateChanged,
+      } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+      import {
+        doc,
+        collection,
+        getDocs,
+        updateDoc,
+        arrayUnion,
+      } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
+      const logoutBtn = document.getElementById("logout-btn");
+      logoutBtn.addEventListener("click", async () => {
+        try {
+          await signOut(auth);
+          localStorage.removeItem("Nestuser");
+          window.location.href = "login.html";
+        } catch (error) {
+          alert(error.message);
+        }
+      });
+
+      let currentUser;
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          currentUser = user;
+          displayCommunities();
+        } else {
+          window.location.href = "login.html";
+        }
+      });
+
+      async function displayCommunities() {
+        const listDiv = document.getElementById("all-communities-list");
+        listDiv.classList.remove("hidden");
+        listDiv.innerHTML = "";
+
+        const data = await getDocs(collection(db, "communities"));
+        data.forEach((docSnap) => {
+          const { name } = docSnap.data();
+          const box = document.createElement("div");
+          box.className = "border p-4 rounded-md flex justify-between items-center";
+          box.innerHTML = `
+            <h2 class="text-lg font-semibold">${name}</h2>
+            <button class="join-btn bg-blue-600 text-white px-4 py-1 rounded-md hover:bg-blue-700" data-name="${name}">
+              Join
+            </button>
+          `;
+          listDiv.appendChild(box);
+        });
+
+        document.querySelectorAll(".join-btn").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            const name = btn.getAttribute("data-name");
+            try {
+              await updateDoc(doc(db, "users", currentUser.uid), {
+                joinedCommunities: arrayUnion(name),
+              });
+              alert(`Joined ${name}`);
+            } catch (error) {
+              alert(error.message);
+            }
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

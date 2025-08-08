@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        background-color: black;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      }
+      .nav-link {
+        transition: background-color 0.2s ease, transform 0.2s ease;
+      }
+      .nav-link:hover {
+        background-color: #e5e7eb;
+        transform: translateY(-1px);
+      }
+      .post-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .post-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .action-btn {
+        transition: background-color 0.2s ease, color 0.2s ease;
+      }
+      /* Modal styles */
+      .modal-overlay {
+        transition: opacity 0.3s ease;
+      }
+    </style>
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <!-- Main container for routing -->
+    <div id="homepage-container" class="flex flex-col flex-grow">
+      <nav class="bg-white shadow-sm sticky top-0 z-40">
+        <div
+          class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center"
+        >
+          <div class="flex items-center space-x-2">
+            <h1 class="font-bold text-purple-800 text-3xl text-gray-800">
+              NicheHood
+            </h1>
+          </div>
+          <div class="flex items-center space-x-4">
+            <a
+              href="homepage.html"
+              class="nav-link bg-purple-700 text-white px-3 py-2 rounded-md text-sm font-medium"
+              >Home</a
+            >
+            <a
+              href="communitie.html"
+              class="nav-link text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+              >Communities</a
+            >
+            <a
+              href="profil.html"
+              id="profile-link"
+              class="nav-link text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+              >Profile</a
+            >
+            <button
+              id="logout-btn"
+              class="nav-link text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <main
+        class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 w-full flex-grow"
+      >
+        <div class="flex justify-between items-center mb-6">
+          <h1
+            id="explore"
+            class="text-2xl cursor-pointer font-bold text-gray-800 px-4 py-2 rounded"
+          >
+            Explore
+          </h1>
+          <h1
+            id="following"
+            class="text-2xl font-bold text-gray-800 cursor-pointer px-4 py-2 rounded"
+          >
+            Following
+          </h1>
+          <button
+            id="create-post-btn"
+            class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+          >
+            Create Post
+          </button>
+        </div>
+        <div class="space-y-6" id="post-list">
+          <!-- Loading Spinner -->
+          <div class="flex justify-center items-center min-h-[200px]">
+            <div
+              class="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"
+            ></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Create Post Modal -->
+    <div
+      id="create-post-modal"
+      class="modal-overlay fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center z-50"
+    >
+      <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-lg m-4">
+        <div class="flex justify-between items-center mb-4 border-b pb-3">
+          <h2 class="text-xl font-bold text-gray-800">Create a New Post</h2>
+          <button
+            id="close-modal-btn"
+            class="text-gray-500 hover:text-gray-800 text-3xl leading-none"
+          >
+            &times;
+          </button>
+        </div>
+        <form id="postForm">
+          <div class="space-y-4">
+            <input
+              type="text"
+              id="title"
+              placeholder="Title"
+              required
+              class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+            <textarea
+              id="description"
+              placeholder="What's on your mind?"
+              required
+              rows="4"
+              class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            ></textarea>
+            <div>
+              <label for="image" class="block text-sm font-medium text-gray-700"
+                >Upload Image (Optional)</label
+              >
+              <input
+                type="text"
+                id="image"
+                required
+                placeholder="Paste Image Url"
+                class="w-full text-sm text-gray-500 border p-4 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+              />
+            </div>
+            <div>
+              <label
+                for="community"
+                class="block text-sm font-medium text-gray-700"
+                >Select Community</label
+              >
+              <select
+                id="community"
+                required
+                class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              >
+                <option value="General">General</option>
+                <option value="Technology">Technology</option>
+                <option value="Science">Science</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Gaming">Gaming</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-6 text-right">
+            <button
+              type="submit"
+              id="submitPost"
+              class="w-full sm:w-auto bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition disabled:bg-blue-300"
+            >
+              Post
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script type="module">
+      document
+        .getElementById("create-post-btn")
+        .addEventListener("click", () => {
+          document.getElementById("create-post-modal").style.display = "flex";
+        });
+      document
+        .getElementById("close-modal-btn")
+        .addEventListener("click", () => {
+          document.getElementById("create-post-modal").style.display = "none";
+        });
+      const exploreEl = document.getElementById("explore");
+      const followingEl = document.getElementById("following");
+
+      function setActive(activeEl, inactiveEl) {
+        activeEl.classList.add("bg-blue-700", "text-white");
+        inactiveEl.classList.remove("bg-blue-700", "text-white");
+      }
+
+      // Default selection on page load
+      setActive(exploreEl, followingEl);
+
+      // When user clicks Explore
+      exploreEl.addEventListener("click", () => {
+        setActive(exploreEl, followingEl);
+      });
+
+      // When user clicks Following
+      followingEl.addEventListener("click", () => {
+        setActive(followingEl, exploreEl);
+      });
+    </script>
+    <script type="module" src="script.js"></script>
+    <script type="module" src="firebaseconfig.js"></script>
+  </body>
+</html>

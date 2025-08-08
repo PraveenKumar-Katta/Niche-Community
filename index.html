@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Your Community</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- General Resets and Body Styling --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* --- Header / Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 0;
+            z-index: 100;
+            /* Glassmorphism Effect */
+            background: rgba(36, 1, 54, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .auth-buttons button {
+            padding: 0.6rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 0.5rem;
+        }
+        
+        /* Primary Button Style */
+        #signUp-btn {
+            background-color: #ffffff;
+            color: #6a11cb;
+        }
+
+        #signUp-btn:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Secondary Button Style */
+        #logIn-btn {
+            background-color: transparent;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            margin: 5px;
+            
+        }
+
+        #logIn-btn:hover {
+            background-color: #ffffff;
+            color: #6a11cb;
+            margin: 5px;
+            
+        }
+
+        /* --- Hero Section --- */
+        main.hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 60vh;
+            padding-top: 80px; /* Offset for fixed header */
+        }
+
+        main.hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+
+        main.hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            color: #f0f0f0;
+            margin-bottom: 2rem;
+        }
+        
+        /* --- Features Section --- */
+        .features {
+            padding: 4rem 0;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            /* Glassmorphism Card Effect */
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #3f3d56;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+        
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            main.hero h1 {
+                font-size: 2.5rem;
+            }
+            main.hero p {
+                font-size: 1rem;
+            }
+            .auth-buttons button {
+                padding: 0.5rem 1rem;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="logo">
+                <h1>NicheHood</h1>
+            </div>
+            <div class="auth-buttons">
+                <button id="logIn-btn">Log In</button>
+                <button id="signUp-btn">Sign Up</button> </div>
+        </div>
+    </header>
+
+    <main class="hero">
+        <div class="container">
+            <h1>Find Your Community</h1>
+            <p>Connect with people who share your passions. Discover, join, and engage in vibrant discussions and build your network from the ground up.</p>
+        </div>
+    </main>
+    
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">🔍</div>
+                    <h3>Discover</h3>
+                    <p>Explore communities tailored to your unique interests and hobbies.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">💬</div>
+                    <h3>Engage</h3>
+                    <p>Participate in rich, topic-based discussions with like-minded people.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">❤️</div>
+                    <h3>Interact</h3>
+                    <p>Show your appreciation by liking, commenting, and sharing posts.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">👥</div>
+                    <h3>Build</h3>
+                    <p>Create your own personal network of friends and collaborators.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Note: Corrected the button ID from "singIn-btn" to "signUp-btn" for better clarity
+        document.getElementById("signUp-btn").addEventListener("click", () => {
+            window.location.href = "signUp.html";
+        });
+
+        document.getElementById("logIn-btn").addEventListener("click", () => {
+            window.location.href = "logIn.html";
+        });
+    </script>
+</body>
+</html>

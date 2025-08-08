@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Community App - Sign Up</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* --- General Resets and Body Styling --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      /* Matching gradient from the previous theme */
+      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    /* --- Sign-Up Form Container --- */
+    #signup-container {
+      width: 100%;
+      max-width: 420px;
+      padding: 2.5rem;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      
+      /* Updated Glassmorphism Effect */
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    }
+    
+    .logo-container {
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .logo-container img {
+        height: 50px;
+        width: auto;
+    }
+
+    #signup-container h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      color: #3f3d56;
+      margin-bottom: 0.5rem;
+    }
+
+    /* --- Form Elements Styling --- */
+    .input-group {
+      width: 100%;
+    }
+
+    input {
+      width: 100%;
+      height: 50px;
+      padding: 0 1rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.6);
+      color: #3f3d56;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    input::placeholder {
+      color: #7a798c;
+    }
+
+    input:focus {
+      outline: none;
+      background: #fff;
+      border-color: #8ec5fc;
+      box-shadow: 0 0 0 3px rgba(142, 197, 252, 0.4);
+    }
+
+    button {
+      width: 100%;
+      height: 50px;
+      background-color: #6a11cb;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 0.5rem; /* Added margin for spacing */
+    }
+
+    button:hover {
+      background-color: #5e0dad;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+      font-size: 0.9rem;
+      text-align: center;
+      color: #3f3d56;
+    }
+
+    a {
+      color: #6a11cb;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+
+    #signup-message {
+      color: #d93030; /* A more visible error color */
+      font-size: 0.9rem;
+      text-align: center;
+      font-weight: 600;
+      min-height: 1.2rem; /* Reserve space to prevent layout shift */
+    }
+
+  </style>
+</head>
+<body>
+  <div id="signup-container">
+    <div class="logo-container">
+       <h1 style="color: #5e0dad;">NicheHood</h1>
+    </div>
+    <h1>Join the Community</h1>
+    <div class="input-group">
+      <input type="text" id="name" placeholder="Full Name" />
+    </div>
+    <div class="input-group">
+      <input type="email" id="signup-email" placeholder="Email Address" />
+    </div>
+    <div class="input-group">
+      <input type="password" id="signup-password" placeholder="Create Password" />
+    </div>
+    <button id="signup-btn">Create Account</button>
+    <p>Already have an account? <a href="logIn.html">Log In</a></p>
+    <p id="signup-message"></p>
+  </div>
+
+  <script type="module" src="./script.js"></script>
+  <script type="module" src="./firebaseconfig.js"></script>
+</body>
+</html>
