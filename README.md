@@ -23,7 +23,7 @@ Built using **HTML, CSS, JavaScript, and Firebase**, it allows users to join com
 
 ---
 
-🔗 **[View Live App Here](https://your-live-demo-link.com)** 
+🔗 **[View Live App Here](https://nichehoodbypk.netlify.app)🔥** 
 
 ## 📦 Installation & Setup
 
